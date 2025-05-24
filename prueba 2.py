@@ -1,70 +1,278 @@
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy.optimize import curve_fit
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cadiño ❤️</title>
+        <link rel="stylesheet" href="style.css">
+        <style>
+            body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: url('https://img.freepik.com/vector-gratis/tema-san-valentin-corazones-cielo-rosa_1308-38030.jpg?semt=ais_hybrid&w=740') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
 
-# Datos (puedes cambiarlos según tu caso)
-posiciones = np.array([0, 2, 4, 8])      # en metros
-tiempos = np.array([0, 3, 6, 10])   # en segundos
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
 
-# Ajustamos un polinomio t(s): tiempo en función de la posición
-coef_ts = np.polyfit(posiciones, tiempos, deg=2)
-poly_ts = np.poly1d(coef_ts)
+.message {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+    font-size: 28px;
+    color: #d63384;
+    font-weight: bold;
+    margin-bottom: 25px;
+    transition: transform 0.3s ease;
+    animation: bounce 1s infinite;
+}
 
-# Generamos muchos valores de posición para evaluar t(s)
-s_vals = np.linspace(min(posiciones), max(posiciones), 100)
-t_vals = poly_ts(s_vals)
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
 
-# Invertimos los datos (s, t) para hacer ajuste de s(t) (posición en función del tiempo)
-# Para eso, simplemente usamos los mismos puntos pero invirtiendo los ejes
-coef_st = np.polyfit(tiempos, posiciones, deg=2)
-poly_st = np.poly1d(coef_st)
+.message:hover {
+    transform: scale(1.1);
+}
 
-# Derivamos para obtener velocidad y aceleración
-poly_vt = np.polyder(poly_st)      # v(t) = ds/dt
-poly_at = np.polyder(poly_vt)      # a(t) = dv/dt
+.hearts {
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    z-index: -1;
+    font-size: 50px;
+    color: #ff99b6;
+    animation: floatHearts 5s ease-in-out infinite;
+}
 
-# Imprimimos las funciones encontradas
-print("Función posición s(t):")
-print(poly_st)
-print("\nFunción velocidad v(t):")
-print(poly_vt)
-print("\nFunción aceleración a(t):")
-print(poly_at)
+@keyframes floatHearts {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    50% { transform: translateY(-150px) scale(1.5); opacity: 0.5; }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+}
 
-# Para graficar usamos un rango continuo de tiempo
-t_plot = np.linspace(min(tiempos), max(tiempos), 200)
-s_plot = poly_st(t_plot)
-v_plot = poly_vt(t_plot)
-a_plot = poly_at(t_plot)
+.hearts:nth-child(2) { left: 25%; animation-duration: 6s; }
+.hearts:nth-child(3) { left: 40%; animation-duration: 7s; }
+.hearts:nth-child(4) { left: 60%; animation-duration: 8s; }
+.hearts:nth-child(5) { left: 75%; animation-duration: 9s; }
 
-# Graficamos
-plt.figure(figsize=(12, 8))
+.text-container {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+}
 
-# Posición
-plt.subplot(3,1,1)
-plt.plot(t_plot, s_plot, label='Posición s(t)', color='blue')
-plt.scatter(tiempos, posiciones, color='red', label='Datos reales')
-plt.ylabel("Posición (m)")
-plt.title("Posición vs Tiempo")
-plt.legend()
-plt.grid(True)
+.charming-text {
+    position: absolute;
+    font-size: 18px;
+    font-family: 'Cursive', sans-serif;
+    color: #d63384;
+    animation: fadeInText 6s ease-in-out infinite;
+    z-index: 1;
+    padding: 10px 20px;
+    border-radius: 25px;
+    background-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 80vw;
+    word-wrap: break-word;
+}
 
-# Velocidad
-plt.subplot(3,1,2)
-plt.plot(t_plot, v_plot, label='Velocidad v(t)', color='green')
-plt.ylabel("Velocidad (m/s)")
-plt.title("Velocidad vs Tiempo")
-plt.legend()
-plt.grid(True)
+.charming-text:nth-child(1) { top: 15%; left: 5%; text-align: left; animation-duration: 6s; }
+.charming-text:nth-child(2) { top: 25%; left: 5%; text-align: left; animation-duration: 7s; }
+.charming-text:nth-child(3) { top: 35%; left: 5%; text-align: left; animation-duration: 8s; }
+.charming-text:nth-child(4) { top: 15%; right: 5%; text-align: right; animation-duration: 6s; }
+.charming-text:nth-child(5) { top: 25%; right: 5%; text-align: right; animation-duration: 7s; }
+.charming-text:nth-child(6) { top: 35%; right: 5%; text-align: right; animation-duration: 8s; }
 
-# Aceleración
-plt.subplot(3,1,3)
-plt.plot(t_plot, a_plot, label='Aceleración a(t)', color='orange')
-plt.xlabel("Tiempo (s)")
-plt.ylabel("Aceleración (m/s²)")
-plt.title("Aceleración vs Tiempo")
-plt.legend()
-plt.grid(True)
+@keyframes fadeInText {
+    0% { opacity: 0; }
+    50% { opacity: 0.5; transform: scale(1.2); }
+    100% { opacity: 1; transform: scale(1); }
+}
 
-plt.tight_layout()
-plt.show()
+.flowers {
+    position: absolute;
+    bottom: 10px;
+    animation: flowerAnimation 5s ease-in-out infinite;
+    font-size: 30px;
+}
+
+@keyframes flowerAnimation {
+    0% { transform: translateY(0); opacity: 0; }
+    50% { transform: translateY(-50px); opacity: 1; }
+    100% { transform: translateY(0); opacity: 0; }
+}
+
+.flowers:nth-child(1) { left: 10%; animation-duration: 6s; }
+.flowers:nth-child(2) { left: 30%; animation-duration: 7s; }
+.flowers:nth-child(3) { left: 50%; animation-duration: 8s; }
+.flowers:nth-child(4) { left: 70%; animation-duration: 9s; }
+.flowers:nth-child(5) { left: 90%; animation-duration: 10s; }
+
+.bubbles {
+    position: absolute;
+    bottom: 10px;
+    font-size: 25px;
+    color: #ff99b6;
+    animation: bubbleAnimation 7s ease-in-out infinite;
+}
+
+@keyframes bubbleAnimation {
+    0% { transform: translateY(0) scale(1); opacity: 0.8; }
+    50% { transform: translateY(-100px) scale(1.3); opacity: 0.4; }
+    100% { transform: translateY(0) scale(1); opacity: 0.8; }
+}
+
+.bubbles:nth-child(1) { left: 10%; animation-duration: 8s; }
+.bubbles:nth-child(2) { left: 30%; animation-duration: 9s; }
+.bubbles:nth-child(3) { left: 50%; animation-duration: 10s; }
+.bubbles:nth-child(4) { left: 70%; animation-duration: 11s; }
+.bubbles:nth-child(5) { left: 90%; animation-duration: 12s; }
+
+#bubbles-text {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.text-bubble {
+    position: absolute;
+    font-size: 18px;
+    font-family: 'Cursive', sans-serif;
+    color: #d63384;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 10px 20px;
+    border-radius: 25px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: floatText 8s ease-in-out forwards;
+    white-space: nowrap;
+}
+
+@keyframes floatText {
+    0% { opacity: 0; transform: scale(0.5) translateY(0px); }
+    50% { opacity: 1; transform: scale(1.2) translateY(-50px); }
+    100% { opacity: 0; transform: scale(1) translateY(-100px); }
+}
+
+@media (max-width: 768px) {
+    body {
+        background-size: 100% 100%;
+        background-position: center top;
+    }
+
+    .message { font-size: 24px; padding: 20px; }
+    .charming-text { font-size: 16px; padding: 8px 16px; }
+    .flowers { font-size: 25px; }
+    .bubbles { font-size: 20px; }
+}
+
+@media (max-width: 768px) {
+    body {
+        background-position: center top;
+        background-size: cover;
+    }
+}
+
+
+        </style>
+    </head>
+    <body>
+        <div class="message"> ¡TE AMOOOOO! ❤️</div>
+        <div id="bubbles-text"></div>
+        <script src="script.js"></script>
+        <script>
+            // Lista de mensajes románticos que aparecerán en burbujas
+const messages = [
+  "Te amo muchísimo ❤️",
+  "Gracias por estar en mi vida 💗",
+  "Eres mi persona favorita 💕",
+  "Mi amada Noe 💘",
+  "Tú y yo, para siempre 💖",
+  "Tu sonrisa me ilumina la vida 💫",
+  "Eres mi niña preciosa 😍",
+  "Cada instante contigo es perfecto y mágico ✨",
+  "Siempre pienso en ti 💭",
+  "Mi cuerpo, mi alma, todo de mí es tuyo 💞"
+];
+
+// Función que crea una burbuja de texto con un mensaje aleatorio
+function createTextBubble() {
+  // Creamos un nuevo elemento <div>
+  const bubble = document.createElement("div");
+
+  // Le asignamos la clase CSS "text-bubble" (debes definirla en tu CSS)
+  bubble.className = "text-bubble";
+
+  // Seleccionamos un mensaje aleatorio del arreglo
+  bubble.innerText = messages[Math.floor(Math.random() * messages.length)];
+
+  // Calculamos una posición aleatoria dentro de la pantalla (entre 10% y 90%)
+  const left = Math.random() * 80 + 10;
+  const top = Math.random() * 80 + 10;
+
+  // Establecemos la posición absoluta y aplicamos las coordenadas calculadas
+  bubble.style.position = "absolute";
+  bubble.style.left = left + "vw"; // vw = porcentaje del ancho de la ventana
+  bubble.style.top = top + "vh";   // vh = porcentaje del alto de la ventana
+
+  // Buscamos el contenedor con ID "bubbles-text" y añadimos la burbuja
+  const container = document.getElementById("bubbles-text");
+  container.appendChild(bubble);
+
+  // Esperamos un momento (10ms) para asegurarnos de que se renderizó
+  setTimeout(() => {
+    const rect = bubble.getBoundingClientRect(); // Obtenemos las coordenadas reales del div
+
+    // Si la burbuja se sale por la derecha, la ajustamos hacia la izquierda
+    if (rect.right > window.innerWidth) {
+      const newLeft = window.innerWidth - rect.width - 10;
+      bubble.style.left = `${newLeft}px`;
+    }
+
+    // Si la burbuja se sale por la parte inferior, la subimos
+    if (rect.bottom > window.innerHeight) {
+      const newTop = window.innerHeight - rect.height - 10;
+      bubble.style.top = `${newTop}px`;
+    }
+
+    // Si se va muy a la izquierda, la traemos hacia adentro
+    if (rect.left < 0) {
+      bubble.style.left = "10px";
+    }
+
+    // Si se va muy arriba, la bajamos un poco
+    if (rect.top < 0) {
+      bubble.style.top = "10px";
+    }
+  }, 10);
+
+  // Eliminamos la burbuja automáticamente después de 8 segundos
+  setTimeout(() => {
+    bubble.remove();
+  }, 8000);
+}
+
+// Llamamos a la función createTextBubble cada 500 milisegundos (0.5 segundos)
+setInterval(createTextBubble, 500);
+
+        </script>
+    </body>
+ 
+    </html>
